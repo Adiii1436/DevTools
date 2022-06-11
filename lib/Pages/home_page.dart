@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'home_header.dart';
-import 'home_list.dart';
+import '../home_widgets/home_header.dart';
+import '../home_widgets/home_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppTopBar(),
+        // appBar: appTopBar(),
         body: SafeArea(
       child: Container(
         padding: const EdgeInsets.all(5),
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
     ));
   }
 
-  AppBar AppTopBar() {
+  AppBar appTopBar() {
     return AppBar(
       leading: IconButton(
           onPressed: () {},
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.white,
       actions: [
         Padding(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           child: IconButton(
             onPressed: () {},
             icon: Image.asset("assets/Icons/user(1).png"),

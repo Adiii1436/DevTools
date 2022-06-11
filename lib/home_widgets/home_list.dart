@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:devtools/Pages/notebook_page.dart';
 import 'package:devtools/home_widgets/hex_color.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -18,7 +19,16 @@ class HomeList extends StatelessWidget {
         itemCount: 8,
         itemBuilder: (context, index) {
           final items = Items.generateItems();
-          return InkWell(onTap: () {}, child: HomeItems(items: items[index]));
+          return InkWell(
+              onTap: () {
+                if (items[index].title == 'Notebook') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const NoteBookPage())));
+                }
+              },
+              child: HomeItems(items: items[index]));
         },
       ),
     );

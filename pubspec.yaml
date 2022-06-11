@@ -31,6 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^3.0.1
+  firebase_core: ^1.17.0
+  firebase_auth: ^3.3.18
+  cloud_firestore: ^3.1.16
+  firebase_analytics: ^9.1.8
   html: ^0.15.0
   velocity_x: ^3.5.1
 
