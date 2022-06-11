@@ -1,8 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:devtools/hex_color.dart';
+import 'package:devtools/home_widgets/hex_color.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:devtools/home_widgets/items.dart';
 
 class HomeList extends StatelessWidget {
@@ -12,7 +11,7 @@ class HomeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: .92 / 1),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -46,12 +45,15 @@ class HomeItems extends StatelessWidget {
           items.title,
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-        ).py12().px8(),
-        // Container(
-        //   width: 50,
-        //   height: 50,
-        //   child: Image.asset(items.imageUrl),
-        // ),
+        ).py12().centered(),
+        Center(
+          child: Image.asset(
+            items.imageUrl,
+            width: items.width,
+            fit: BoxFit.fitWidth,
+            height: items.height,
+          ),
+        ),
       ]),
     );
   }

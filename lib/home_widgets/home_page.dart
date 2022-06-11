@@ -9,34 +9,37 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                "assets/Icons/menu.png",
-                width: 28,
-              )),
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-          actions: [
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: IconButton(
-                onPressed: () {},
-                icon: Image.asset("assets/Icons/user(1).png"),
-              ),
-            )
-          ],
-        ),
+        // appBar: AppTopBar(),
         body: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const HomeHeader(),
-              const HomeList().py16().expand(),
-            ]),
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const HomeHeader(),
+          const HomeList().py16().expand(),
+        ]),
+      ),
+    ));
+  }
+
+  AppBar AppTopBar() {
+    return AppBar(
+      leading: IconButton(
+          onPressed: () {},
+          icon: Image.asset(
+            "assets/Icons/menu.png",
+            width: 28,
+          )),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      actions: [
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: IconButton(
+            onPressed: () {},
+            icon: Image.asset("assets/Icons/user(1).png"),
           ),
-        ));
+        )
+      ],
+    );
   }
 }
