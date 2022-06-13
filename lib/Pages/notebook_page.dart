@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devtools/Pages/add_note.dart';
 import 'package:devtools/Pages/edit_note.dart';
 import 'package:devtools/home_widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
-import 'package:firebase_database/firebase_database.dart';
-
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:devtools/home_widgets/items.dart';
 
 class NoteBookPage extends StatefulWidget {
@@ -24,12 +24,15 @@ class NoteBookPage extends StatefulWidget {
 class _NoteBookPageState extends State<NoteBookPage> {
   final ref = FirebaseFirestore.instance.collection('devTools_notebook');
 
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
+  List<Color?> myColors = [
+    Colors.yellow[200],
+    Colors.red[200],
+    Colors.green[200],
+    Colors.deepPurple[200],
+    Colors.blue[200],
+    Colors.pink[200],
+    Colors.brown[200]
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +41,25 @@ class _NoteBookPageState extends State<NoteBookPage> {
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => AddNote()));
+                      context, MaterialPageRoute(builder: (_) => AddNote()))
+                  .then((value) => setState(
+                        () {},
+                      ));
             },
             child: const Icon(Icons.add)),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            notesHeader(),
-            notesList(),
-          ],
-        ));
+        body: SafeArea(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          notesHeader(),
+          notesList(),
+        ])));
   }
 
   Column notesHeader() {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 40),
+          margin: const EdgeInsets.only(top: 20),
           child: const Text("Notebook",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold))
               .px12(),
@@ -76,22 +81,27 @@ class _NoteBookPageState extends State<NoteBookPage> {
                 itemCount:
                     snapshot.hasData ? snapshot.data?.docChanges.length : 0,
                 itemBuilder: (context, index) {
+                  Random random = Random();
+                  Color? bg = myColors[random.nextInt(7)];
+                  // String? myDateTime = snapshot
+                  //     .data?.docChanges[index].doc['created']
+                  //     .toString();
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditNote(
-                                  docToEdit:
-                                      snapshot.data!.docChanges[index].doc)));
+                                  docToEdit: snapshot.data!.docChanges[index]
+                                      .doc))).then((value) => setState(
+                            () {},
+                          ));
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
-                      height: 100,
                       decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(4)),
+                          color: bg, borderRadius: BorderRadius.circular(4)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -99,10 +109,21 @@ class _NoteBookPageState extends State<NoteBookPage> {
                           children: [
                             Text(
                               snapshot.data?.docChanges[index].doc['title'],
-                              style: const TextStyle(fontSize: 20),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                                snapshot.data?.docChanges[index].doc['content'])
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text((snapshot.data?.docChanges[index]
+                                            .doc['content']
+                                            .toString()
+                                            .length ??
+                                        0) <
+                                    50
+                                ? snapshot
+                                    .data?.docChanges[index].doc['content']
+                                : "${snapshot.data?.docChanges[index].doc['content'].toString().substring(0, 80)}....")
                           ],
                         ),
                       ),

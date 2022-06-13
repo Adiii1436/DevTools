@@ -21,7 +21,8 @@ class AddNote extends StatelessWidget {
               onPressed: () {
                 ref.add({
                   'title': title.text,
-                  'content': content.text
+                  'content': content.text,
+                  'created': DateTime.now()
                 }).whenComplete(() => Navigator.pop(context));
               },
               splashRadius: 20,

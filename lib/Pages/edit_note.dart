@@ -39,7 +39,8 @@ class _EditNoteState extends State<EditNote> {
               onPressed: () {
                 widget.docToEdit.reference.update({
                   'title': title.text,
-                  'content': content.text
+                  'content': content.text,
+                  'created': DateTime.now()
                 }).whenComplete(() => Navigator.pop(context));
               },
               splashRadius: 20,
