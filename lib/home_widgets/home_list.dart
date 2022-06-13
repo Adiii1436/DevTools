@@ -12,6 +12,7 @@ class HomeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
+        physics: BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: .92 / 1),
         scrollDirection: Axis.vertical,
@@ -25,7 +26,9 @@ class HomeList extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => const NoteBookPage())));
+                          builder: ((context) => NoteBookPage(
+                                item: items[index],
+                              ))));
                 }
               },
               child: HomeItems(items: items[index]));

@@ -27,15 +27,18 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cloud_firestore: ^3.1.16
   cupertino_icons: ^1.0.2
+  firebase_analytics: ^9.1.8
+  firebase_auth: ^3.3.18
+  firebase_core: ^1.17.0
+  firebase_database: ^9.0.15
   flutter:
     sdk: flutter
   google_fonts: ^3.0.1
-  firebase_core: ^1.17.0
-  firebase_auth: ^3.3.18
-  cloud_firestore: ^3.1.16
-  firebase_analytics: ^9.1.8
   html: ^0.15.0
+  intl: ^0.17.0
+  staggered_grid_view_flutter: ^0.0.4
   velocity_x: ^3.5.1
 
 dev_dependencies:
@@ -54,8 +57,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/Icons/
-      - assets/Images/
+    - assets/Icons/
+    - assets/Images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
