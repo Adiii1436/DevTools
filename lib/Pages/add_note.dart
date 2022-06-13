@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:devtools/home_widgets/themes.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatelessWidget {
@@ -14,7 +15,7 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: MyTheme.creamColor,
         elevation: 0.0,
         actions: [
           IconButton(

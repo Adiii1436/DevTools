@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:devtools/home_widgets/themes.dart';
 import 'package:flutter/material.dart';
 
 class EditNote extends StatefulWidget {
+  final Color? mycolor;
   final DocumentSnapshot docToEdit;
 
-  const EditNote({
-    Key? key,
-    required this.docToEdit,
-  }) : super(key: key);
+  const EditNote({Key? key, required this.docToEdit, required this.mycolor})
+      : super(key: key);
 
   @override
   State<EditNote> createState() => _EditNoteState();
@@ -32,7 +32,7 @@ class _EditNoteState extends State<EditNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: widget.mycolor,
         elevation: 0.0,
         actions: [
           IconButton(

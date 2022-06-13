@@ -6,7 +6,6 @@ import 'package:devtools/Pages/add_note.dart';
 import 'package:devtools/Pages/edit_note.dart';
 import 'package:devtools/home_widgets/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -37,6 +36,14 @@ class _NoteBookPageState extends State<NoteBookPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Notebook',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: MyTheme.creamColor,
+          elevation: 0.0,
+        ),
         backgroundColor: MyTheme.creamColor,
         floatingActionButton: FloatingActionButton(
             onPressed: () {
@@ -50,7 +57,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
         body: SafeArea(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          notesHeader(),
+          // notesHeader(),
           notesList(),
         ])));
   }
@@ -92,8 +99,10 @@ class _NoteBookPageState extends State<NoteBookPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditNote(
-                                  docToEdit: snapshot.data!.docChanges[index]
-                                      .doc))).then((value) => setState(
+                                    docToEdit:
+                                        snapshot.data!.docChanges[index].doc,
+                                    mycolor: bg,
+                                  ))).then((value) => setState(
                             () {},
                           ));
                     },
