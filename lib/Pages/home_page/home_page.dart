@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../home_widgets/home_header.dart';
-import '../home_widgets/home_list.dart';
+import 'home_header.dart';
+import 'home_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

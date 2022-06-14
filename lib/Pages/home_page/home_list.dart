@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:devtools/Pages/notebook_page.dart';
-import 'package:devtools/home_widgets/hex_color.dart';
+import 'package:devtools/Pages/notebook_page/notebook_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:devtools/home_widgets/items.dart';
+
+import '../../widgets/hex_color.dart';
+import '../../widgets/items.dart';
 
 class HomeList extends StatelessWidget {
   const HomeList({Key? key}) : super(key: key);
@@ -12,9 +14,9 @@ class HomeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: .92 / 1),
+            crossAxisCount: 2, childAspectRatio: .99 / 1),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: 8,
@@ -49,6 +51,7 @@ class HomeItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           color: HexColor(items.color),
           borderRadius: BorderRadius.circular(16)),

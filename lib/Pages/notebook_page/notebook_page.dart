@@ -2,14 +2,15 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:devtools/Pages/add_note.dart';
-import 'package:devtools/Pages/edit_note.dart';
-import 'package:devtools/home_widgets/themes.dart';
+import 'package:devtools/Pages/notebook_page/add_note.dart';
+import 'package:devtools/Pages/notebook_page/edit_note.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:devtools/home_widgets/items.dart';
+
+import '../../widgets/items.dart';
+import '../../widgets/themes.dart';
 
 class NoteBookPage extends StatefulWidget {
   final Items item;
@@ -39,7 +40,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
         appBar: AppBar(
           title: const Text(
             'Notebook',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
           backgroundColor: MyTheme.creamColor,
           elevation: 0.0,
@@ -53,7 +54,10 @@ class _NoteBookPageState extends State<NoteBookPage> {
                         () {},
                       ));
             },
-            child: const Icon(Icons.add)),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            )),
         body: SafeArea(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -119,20 +123,22 @@ class _NoteBookPageState extends State<NoteBookPage> {
                             Text(
                               snapshot.data?.docChanges[index].doc['title'],
                               style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            Text((snapshot.data?.docChanges[index]
-                                            .doc['content']
-                                            .toString()
-                                            .length ??
-                                        0) <
-                                    50
-                                ? snapshot
-                                    .data?.docChanges[index].doc['content']
-                                : "${snapshot.data?.docChanges[index].doc['content'].toString().substring(0, 80)}....")
+                            Text(
+                              (snapshot.data?.docChanges[index].doc['content']
+                                              .toString()
+                                              .length ??
+                                          0) <
+                                      250
+                                  ? snapshot
+                                      .data?.docChanges[index].doc['content']
+                                  : "${snapshot.data?.docChanges[index].doc['content'].toString().substring(0, 250)}.........",
+                              style: TextStyle(fontSize: 16),
+                            )
                           ],
                         ),
                       ),

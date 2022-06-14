@@ -1,9 +1,8 @@
-import 'package:devtools/home_widgets/themes.dart';
-import 'package:devtools/home_widgets/routes.dart';
+import 'package:devtools/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:velocity_x/velocity_x.dart';
-import 'Pages/home_page.dart';
+import 'Pages/home_page/home_page.dart';
+import 'widgets/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
