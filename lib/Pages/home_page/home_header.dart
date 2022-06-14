@@ -10,9 +10,12 @@ class HomeHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
-          child: const Text('DevTools',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
-              .px4(),
+          child: Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: const Text('DevTools',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
+                .px4(),
+          ),
         ),
         Center(
           child: const Text(
