@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:devtools/Pages/notebook_page/add_note.dart';
 import 'package:devtools/Pages/notebook_page/edit_note.dart';
