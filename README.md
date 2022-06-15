@@ -1,6 +1,6 @@
-# DevTools
+# DevTools 
 
-A new Flutter project.
+It is currently in the alpha stage of development. Do checkout if you are interested 😉.
 
 ## Getting Started
 
