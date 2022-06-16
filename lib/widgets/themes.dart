@@ -7,8 +7,7 @@ class MyTheme {
       primarySwatch: Colors.lightBlue,
       cardColor: Colors.white,
       canvasColor: MyTheme.creamColor,
-      fontFamily: GoogleFonts.courierPrime()
-          .fontFamily //GoogleFonts.poppins().fontFamily
+      fontFamily: GoogleFonts.poppins().fontFamily
       // appBarTheme: const AppBarTheme(
       //   color: Colors.white,
       //   elevation: 0.0,)

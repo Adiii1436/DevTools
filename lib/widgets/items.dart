@@ -19,13 +19,13 @@ class Items {
           imageUrl: "assets/Images/2840443-removebg-preview(1).png",
           color: "#d9c8c0",
           width: 140,
-          height: 115),
+          height: 110),
       Items(
           title: "Todo list",
           imageUrl: "assets/Images/smartphone-gcd4d097f4_1280.png",
           color: "#f4717f",
-          width: 101,
-          height: 122),
+          width: 93,
+          height: 114),
       Items(
           title: "Games",
           imageUrl: "assets/Images/3745105-removebg-preview.png",
@@ -43,27 +43,27 @@ class Items {
           title: "Resume",
           imageUrl: "assets/Images/5215757-removebg-preview.png",
           color: "#bdbdc7",
-          width: 130,
-          height: 121),
+          width: 120,
+          height: 110),
       Items(
           title: "Github",
           imageUrl: "assets/Images/GitHub-Code-Repository-removebg-preview.png",
           color: "#dc9cfd",
           width: 125,
-          height: 110),
+          height: 100),
       Items(
           title: "Calculator",
           imageUrl: "assets/Images/3609083-removebg-preview.png",
           color: "#a6a184",
-          width: 135,
-          height: 120),
+          width: 130,
+          height: 110),
       Items(
           title: "News",
           imageUrl:
               "assets/Images/morning_news_update_concept_illustration-removebg-preview.png",
           color: "#9de47c",
-          width: 135,
-          height: 120)
+          width: 130,
+          height: 110)
     ];
   }
 }
