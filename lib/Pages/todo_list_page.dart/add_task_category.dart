@@ -1,23 +1,27 @@
-import 'package:devtools/Pages/todo_list_page.dart/categories.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:devtools/Pages/todo_list_page.dart/categories.dart';
 
 import '../../widgets/themes.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({Key? key}) : super(key: key);
+class AddTaskCategory extends StatefulWidget {
+  final DocumentSnapshot category;
+
+  const AddTaskCategory({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<AddTaskCategory> createState() => _AddTaskCategoryState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _AddTaskCategoryState extends State<AddTaskCategory> {
   final TextEditingController task = TextEditingController();
-
-  final CollectionReference ref =
-      FirebaseFirestore.instance.collection('devTools_todo');
 
   DateTime? myDateTime;
   String date = '';
@@ -25,6 +29,11 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
+    final docId = widget.category['category'];
+    final ref = FirebaseFirestore.instance
+        .collection('devTools_categories')
+        .doc(docId)
+        .collection("$docId list");
     return Scaffold(
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 30, right: 20),
@@ -50,7 +59,7 @@ class _AddTaskState extends State<AddTask> {
               ref.add({
                 'task': task.text,
                 'Date': date == '' ? todayDate : date,
-                'category': ''
+                'category': widget.category['category']
               }).whenComplete(() => Navigator.pop(context));
             }),
       ),

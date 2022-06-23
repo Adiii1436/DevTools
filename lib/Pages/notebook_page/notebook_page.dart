@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../../widgets/items.dart';
 import '../../widgets/themes.dart';
 
@@ -93,9 +92,6 @@ class _NoteBookPageState extends State<NoteBookPage> {
                 itemBuilder: (context, index) {
                   Random random = Random();
                   Color? bg = myColors[random.nextInt(7)];
-                  // String? myDateTime = snapshot
-                  //     .data?.docChanges[index].doc['created']
-                  //     .toString();
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -136,7 +132,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
                                   ? snapshot
                                       .data?.docChanges[index].doc['content']
                                   : "${snapshot.data?.docChanges[index].doc['content'].toString().substring(0, 250)}.........",
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                             )
                           ],
                         ),
