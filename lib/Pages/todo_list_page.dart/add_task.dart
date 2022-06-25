@@ -14,6 +14,7 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController task = TextEditingController();
 
   final CollectionReference ref =
@@ -50,7 +51,8 @@ class _AddTaskState extends State<AddTask> {
               ref.add({
                 'task': task.text,
                 'Date': date == '' ? todayDate : date,
-                'category': ''
+                'category': '',
+                'status': false
               }).whenComplete(() => Navigator.pop(context));
             }),
       ),
@@ -82,22 +84,34 @@ class _AddTaskState extends State<AddTask> {
           const SizedBox(
             height: 50,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 55),
-            child: TextField(
-                controller: task,
-                cursorColor: Colors.black38,
-                style: const TextStyle(fontSize: 25, color: Colors.black),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  hintText: 'Enter a new task',
-                  hintStyle: TextStyle(
-                    color: Colors.black26,
+          Form(
+            key: _formKey,
+            child: Container(
+              margin: const EdgeInsets.only(left: 55),
+              child: TextFormField(
+                  controller: task,
+                  autofocus: true,
+                  cursorColor: Colors.black38,
+                  style: const TextStyle(fontSize: 25, color: Colors.black),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintText: 'Enter a new task',
+                    hintStyle: TextStyle(
+                      color: Colors.black26,
+                    ),
                   ),
-                )),
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return "password cannot be empty";
+                    } else if (value.length < 6) {
+                      return "password length must be atleast 6";
+                    }
+                    return null;
+                  }),
+            ),
           ),
           const SizedBox(
             height: 40,
@@ -176,7 +190,7 @@ class _AddTaskState extends State<AddTask> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => AddCategories())));
+                              builder: ((context) => const AddCategories())));
                     },
                     icon: const Icon(Icons.folder_open_sharp,
                         size: 25, color: Vx.gray500)),
@@ -195,10 +209,20 @@ class _AddTaskState extends State<AddTask> {
                   Icons.flag_outlined,
                   size: 25,
                   color: Vx.gray500,
-                )
+                ),
               ],
             ),
-          )
+          ),
+          // const SizedBox(
+          //   height: 90,
+          // ),
+          // const SizedBox(
+          //   width: 270,
+          //   child: Text(
+          //     "If you'll create a task for future then it will show up on the dashboard on that particular day.",
+          //     style: TextStyle(fontSize: 12, color: Vx.gray500),
+          //   ),
+          // )
         ]),
       )),
     );

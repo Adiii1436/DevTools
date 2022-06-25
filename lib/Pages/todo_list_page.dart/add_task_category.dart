@@ -3,9 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:devtools/Pages/todo_list_page.dart/categories.dart';
-
 import '../../widgets/themes.dart';
 
 class AddTaskCategory extends StatefulWidget {
@@ -59,7 +57,8 @@ class _AddTaskCategoryState extends State<AddTaskCategory> {
               ref.add({
                 'task': task.text,
                 'Date': date == '' ? todayDate : date,
-                'category': widget.category['category']
+                'category': widget.category['category'],
+                'status': false
               }).whenComplete(() => Navigator.pop(context));
             }),
       ),
@@ -185,7 +184,7 @@ class _AddTaskCategoryState extends State<AddTaskCategory> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => AddCategories())));
+                              builder: ((context) => const AddCategories())));
                     },
                     icon: const Icon(Icons.folder_open_sharp,
                         size: 25, color: Vx.gray500)),
@@ -207,7 +206,17 @@ class _AddTaskCategoryState extends State<AddTaskCategory> {
                 )
               ],
             ),
-          )
+          ),
+          // const SizedBox(
+          //   height: 90,
+          // ),
+          // Container(
+          //   width: 270,
+          //   child: Text(
+          //     "If you'll create a task for future then it will show up on the dashboard on that particular day.",
+          //     style: TextStyle(fontSize: 12, color: Vx.gray500),
+          //   ),
+          // )
         ]),
       )),
     );

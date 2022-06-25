@@ -13,7 +13,6 @@ class AddCategories extends StatefulWidget {
 }
 
 class _AddCategoriesState extends State<AddCategories> {
-  bool isChecked = false;
   final ref = FirebaseFirestore.instance.collection('devTools_categories');
 
   DateTime? myDateTime;
@@ -58,8 +57,9 @@ class _AddCategoriesState extends State<AddCategories> {
               ref.doc(cate.text).set({
                 'task': '',
                 'Date': date == '' ? todayDate : date,
-                'category': cate.text
-              }).whenComplete(() => Navigator.push(
+                'category': cate.text,
+                'status': false
+              }).whenComplete(() => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const TodoListPage())));
