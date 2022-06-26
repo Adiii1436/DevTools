@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:devtools/Pages/todo_list_page.dart/add_task.dart';
-import 'package:devtools/Pages/todo_list_page.dart/create_category.dart';
+import 'package:devtools/Pages/todo_list_page/add_task.dart';
+import 'package:devtools/Pages/todo_list_page/category_list.dart';
 import 'package:devtools/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

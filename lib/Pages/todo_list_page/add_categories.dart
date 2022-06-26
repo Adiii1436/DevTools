@@ -1,4 +1,4 @@
-import 'package:devtools/Pages/todo_list_page.dart/todo_list.dart';
+import 'package:devtools/Pages/todo_list_page/todo_list.dart';
 import 'package:devtools/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

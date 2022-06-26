@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:devtools/Pages/notebook_page/notebook_page.dart';
-import 'package:devtools/Pages/todo_list_page.dart/todo_list.dart';
+import 'package:devtools/Pages/todo_list_page/todo_list.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../widgets/hex_color.dart';
 import '../../widgets/items.dart';
+import '../bmi_page/bmi_page.dart';
 
 class HomeList extends StatelessWidget {
   const HomeList({Key? key}) : super(key: key);
@@ -34,7 +35,12 @@ class HomeList extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => TodoListPage())));
+                          builder: ((context) => const TodoListPage())));
+                } else if (items[index].title == 'BMI') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const BmiPage())));
                 }
               },
               child: HomeItems(items: items[index]));
