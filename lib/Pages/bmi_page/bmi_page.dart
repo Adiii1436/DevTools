@@ -159,13 +159,24 @@ class _BmiPageState extends State<BmiPage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BmiResult(
-                              height: height,
-                              weight: weight,
-                            )));
+                height != 0 && weight != 0
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BmiResult(
+                                  height: height,
+                                  weight: weight,
+                                )))
+                    : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        elevation: 0.0,
+                        backgroundColor: Vx.gray600,
+                        content: Container(
+                          margin: const EdgeInsets.only(left: 39),
+                          child: const Text(
+                            "Please enter your height and weight",
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          ),
+                        )));
               },
               child: Container(
                 decoration: BoxDecoration(

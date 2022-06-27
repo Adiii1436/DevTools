@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:devtools/Pages/calculator_page/calculator_page.dart';
 import 'package:devtools/Pages/notebook_page/notebook_page.dart';
 import 'package:devtools/Pages/todo_list_page/todo_list.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,11 @@ class HomeList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: ((context) => const BmiPage())));
+                } else if (items[index].title == 'Calculator') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => CalculatorPage())));
                 }
               },
               child: HomeItems(items: items[index]));

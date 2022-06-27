@@ -9,8 +9,6 @@ class BmiResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(height);
-    print(weight);
     String status = '';
     Color? cl;
     String desc = '';
@@ -21,12 +19,12 @@ class BmiResult extends StatelessWidget {
       cl = Colors.blue;
       desc = 'Underweight BMI range: <18kg/m2';
       info = 'You are underweight. Eat more!';
-    } else if (bmi >= 18.5 && bmi <= 24) {
+    } else if (bmi >= 18.5 && bmi <= 25) {
       status = 'NORMAL';
       cl = Colors.green;
       desc = 'Normal BMI range: 18.5 - 25kg/m2';
       info = 'You have a normal body weight. Good job!';
-    } else if (bmi > 24 && bmi <= 29.9) {
+    } else if (bmi > 25 && bmi <= 29.9) {
       status = 'OVERWEIGHT';
       cl = Colors.yellow;
       desc = 'Overweight BMI range: 25 - 29.9kg/m2';
@@ -37,6 +35,7 @@ class BmiResult extends StatelessWidget {
       desc = 'Obese BMI range: >29.9 kg/m2';
       info = 'Fuck! so much fat. God bless you.';
     }
+    var firstDesc = desc.split(":")[0];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -76,11 +75,11 @@ class BmiResult extends StatelessWidget {
                       fontSize: 100, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  desc.substring(0, 17),
+                  "$firstDesc:",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Text(desc.substring(18), style: const TextStyle(fontSize: 15)),
+                Text(desc.split(":")[1], style: const TextStyle(fontSize: 15)),
                 const SizedBox(
                   height: 30,
                 ),
