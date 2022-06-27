@@ -38,7 +38,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       '=',
       '(',
       ')',
-      'e',
+      '^',
       'π'
     ];
     return Scaffold(
@@ -98,7 +98,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                               conc = conc.replaceAll('×', '*');
                               conc = conc.replaceAll('÷', '/');
                               conc = conc.replaceAll('π', '3.141592');
-                              conc = conc.replaceAll('e', '2.718281828');
                               try {
                                 ContextModel cm = ContextModel();
                                 Parser p = Parser();
@@ -125,10 +124,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: const EdgeInsets.all(2),
                             child: Center(
-                                child: Text(
-                              text[index],
-                              style: const TextStyle(fontSize: 29),
-                            )),
+                                child: text[index] == '='
+                                    ? Text(text[index],
+                                        style: const TextStyle(
+                                            fontSize: 26,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold))
+                                    : Text(
+                                        text[index],
+                                        style: const TextStyle(fontSize: 26),
+                                      )),
                           ),
                         );
                       })),

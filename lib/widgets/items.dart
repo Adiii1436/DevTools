@@ -25,12 +25,12 @@ class Items {
           imageUrl: "assets/Images/smartphone-gcd4d097f4_1280.png",
           color: "#f4717f",
           width: 99,
-          height: 119),
+          height: 119.7),
       Items(
-          title: "Games",
-          imageUrl: "assets/Images/3745105-removebg-preview.png",
-          color: "544e50",
-          width: 160,
+          title: "Calculator",
+          imageUrl: "assets/Images/3609083-removebg-preview.png",
+          color: "#a6a184",
+          width: 130,
           height: 110),
       Items(
           title: "BMI",
@@ -38,6 +38,12 @@ class Items {
               "assets/Images/65Z_2112.w012.n001.20A.p20.20-removebg-preview.png",
           color: "#f9d162",
           width: 200,
+          height: 110),
+      Items(
+          title: "Games",
+          imageUrl: "assets/Images/3745105-removebg-preview.png",
+          color: "544e50",
+          width: 160,
           height: 110),
       Items(
           title: "Resume",
@@ -51,12 +57,6 @@ class Items {
           color: "#dc9cfd",
           width: 125,
           height: 100),
-      Items(
-          title: "Calculator",
-          imageUrl: "assets/Images/3609083-removebg-preview.png",
-          color: "#a6a184",
-          width: 130,
-          height: 110),
       Items(
           title: "News",
           imageUrl:
