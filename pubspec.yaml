@@ -41,6 +41,7 @@ dependencies:
   horizontal_picker: ^1.2.0
   html: ^0.15.0
   intl: ^0.17.0
+  math_expressions: ^2.3.1
   staggered_grid_view_flutter: ^0.0.4
   velocity_x: ^3.5.1
 
