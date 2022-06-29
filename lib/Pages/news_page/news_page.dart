@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devtools/Pages/news_page/article_model.dart';
 import 'package:devtools/Pages/news_page/news_categories_view.dart';
 import 'package:devtools/Pages/news_page/news_view.dart';
@@ -183,11 +184,12 @@ class NewsList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(left: 5, right: 5),
             child: Center(
-              child: Text(headline,
-                  maxLines: 2,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis),
+              child: Text(
+                headline,
+                maxLines: 2,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           const SizedBox(
@@ -240,8 +242,8 @@ class HeaderList extends StatelessWidget {
         child: Stack(alignment: AlignmentDirectional.center, children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              imgUrl,
+            child: CachedNetworkImage(
+              imageUrl: imgUrl,
               width: 200,
               fit: BoxFit.cover,
             ),
