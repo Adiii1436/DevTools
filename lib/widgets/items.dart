@@ -40,6 +40,13 @@ class Items {
           width: 200,
           height: 110),
       Items(
+          title: "News",
+          imageUrl:
+              "assets/Images/morning_news_update_concept_illustration-removebg-preview.png",
+          color: "#9de47c",
+          width: 130,
+          height: 110),
+      Items(
           title: "Games",
           imageUrl: "assets/Images/3745105-removebg-preview.png",
           color: "544e50",
@@ -56,14 +63,7 @@ class Items {
           imageUrl: "assets/Images/GitHub-Code-Repository-removebg-preview.png",
           color: "#dc9cfd",
           width: 125,
-          height: 100),
-      Items(
-          title: "News",
-          imageUrl:
-              "assets/Images/morning_news_update_concept_illustration-removebg-preview.png",
-          color: "#9de47c",
-          width: 130,
-          height: 110)
+          height: 100)
     ];
   }
 }

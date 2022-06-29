@@ -1,16 +1,11 @@
-# devtools
+# DevTools 
 
-A new Flutter project.
+It is currently in the alpha stage of development. Do checkout if you are interested 😉.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+It's a straightforward toolbox for developers.
 
-A few resources to get you started if this is your first Flutter project:
+It includes all of the essential tools that a developer needs on a regular basis. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This will not help them to write fancy python codes but it will give them optimism that they are, in fact, doing an excellent job. 

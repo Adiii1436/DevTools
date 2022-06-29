@@ -13,7 +13,8 @@ class BmiResult extends StatelessWidget {
     Color? cl;
     String desc = '';
     String info = '';
-    final bmi = weight / ((height / 100) * (height / 100));
+    dynamic bmi = weight / ((height / 100) * (height / 100));
+    bmi = bmi.ceil();
     if (bmi < 18.5) {
       status = 'UNDERWEIGHT';
       cl = Colors.blue;
