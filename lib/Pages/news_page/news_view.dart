@@ -20,7 +20,16 @@ class _NewsViewsState extends State<NewsViews> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(elevation: 0.0, backgroundColor: MyTheme.creamColor),
+        appBar: AppBar(
+          backgroundColor: MyTheme.creamColor,
+          title: const Text(
+            'NewsNet',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+          ),
+          centerTitle: true,
+          foregroundColor: Colors.green,
+          elevation: 0.0,
+        ),
         body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,

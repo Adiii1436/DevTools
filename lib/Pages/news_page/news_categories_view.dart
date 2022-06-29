@@ -53,6 +53,16 @@ class _NewsCategoriesViewState extends State<NewsCategoriesView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: MyTheme.creamColor,
+          title: const Text(
+            'NewsNet',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+          ),
+          centerTitle: true,
+          foregroundColor: Colors.green,
+          elevation: 0.0,
+        ),
         body: loading
             ? const Center(
                 child: SizedBox(

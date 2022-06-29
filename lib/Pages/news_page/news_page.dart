@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:devtools/Pages/news_page/news_categories.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'news.dart';
 
 class NewsPage extends StatefulWidget {
@@ -68,6 +67,16 @@ class _NewsPageState extends State<NewsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: MyTheme.creamColor,
+          title: const Text(
+            'NewsNet',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+          ),
+          centerTitle: true,
+          foregroundColor: Colors.green,
+          elevation: 0.0,
+        ),
         body: loading
             ? const Center(
                 child: SizedBox(
@@ -79,18 +88,14 @@ class _NewsPageState extends State<NewsPage> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(7),
                         topRight: Radius.circular(7))),
-                margin: const EdgeInsets.only(
-                    bottom: 25, left: 10, right: 10, top: 10),
+                padding: const EdgeInsets.only(
+                    bottom: 25, left: 12, right: 12, top: 12),
                 child: Column(children: [
                   Container(
                     clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(7),
-                            topRight: Radius.circular(7),
-                            bottomRight: Radius.circular(7))),
-                    margin: const EdgeInsets.only(
-                        bottom: 15, left: 5, right: 5, top: 5),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(7)),
+                    margin: const EdgeInsets.only(bottom: 15),
                     height: 60,
                     width: MediaQuery.of(context).size.width * 0.94,
                     child: Expanded(
@@ -164,7 +169,7 @@ class NewsList extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
             color: MyTheme.creamColor, borderRadius: BorderRadius.circular(7)),
-        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         height: 300,
         child: Column(children: [
           Container(
@@ -182,7 +187,7 @@ class NewsList extends StatelessWidget {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.only(left: 5, right: 5),
+            padding: const EdgeInsets.only(left: 2, right: 2),
             child: Center(
               child: Text(
                 headline,
@@ -196,7 +201,7 @@ class NewsList extends StatelessWidget {
             height: 5,
           ),
           Container(
-            padding: const EdgeInsets.only(left: 5, right: 5),
+            padding: const EdgeInsets.only(left: 2, right: 2),
             child: Text(
               description,
               maxLines: 2,
