@@ -19,6 +19,7 @@ class _TodoListPageState extends State<TodoListPage> {
   final ref = FirebaseFirestore.instance.collection('devTools_todo');
   final ref1 = FirebaseFirestore.instance.collection('devTools_categories');
   final todayDate = DateFormat('dd-MM-yy').format(DateTime.now());
+  bool flag = false;
 
   List<Color?> myColors = [
     Colors.red[600],
@@ -54,22 +55,6 @@ class _TodoListPageState extends State<TodoListPage> {
         // toolbarHeight: 70,
         backgroundColor: MyTheme.creamColor,
         elevation: 0.0,
-        // leading: const Icon(
-        //   Icons.menu_outlined,
-        //   color: Vx.gray500,
-        // ),
-        // actions: [
-        //   IconButton(
-        //       color: Vx.gray500,
-        //       splashRadius: 25,
-        //       onPressed: () {},
-        //       icon: const Icon(Icons.search)),
-        //   IconButton(
-        //       color: Vx.gray500,
-        //       splashRadius: 25,
-        //       onPressed: () {},
-        //       icon: const Icon(Icons.notifications_none_outlined))
-        // ],
       ),
       body: SafeArea(
         child: Container(
@@ -111,9 +96,15 @@ class _TodoListPageState extends State<TodoListPage> {
                                     ? snapshot.data?.docChanges.length
                                     : 1,
                                 itemBuilder: (context, index) {
+                                  if (snapshot.data?.docChanges.length ==
+                                      null) {
+                                    flag = false;
+                                  } else {
+                                    flag = true;
+                                  }
                                   Random random = Random();
                                   Color? bg = myColors[random.nextInt(6)];
-                                  return snapshot.hasData
+                                  return flag
                                       ? InkWell(
                                           onTap: () {
                                             Navigator.push(
@@ -150,9 +141,10 @@ class _TodoListPageState extends State<TodoListPage> {
                                                 .px16(),
                                           ),
                                         )
-                                      : const SizedBox(
-                                          width: 0,
-                                          height: 0,
+                                      : Container(
+                                          width: 100,
+                                          height: 100,
+                                          color: Colors.white,
                                         );
                                 });
                           })),
@@ -185,147 +177,126 @@ class _TodoListPageState extends State<TodoListPage> {
                                 .data?.docChanges[index].doc['category'];
                             final date =
                                 snapshot.data?.docChanges[index].doc['Date'];
-                            return date == todayDate
-                                ? Dismissible(
-                                    key: UniqueKey(),
-                                    direction: DismissDirection.horizontal,
-                                    onDismissed: (direction) {
-                                      deleteItem(
-                                          snapshot.data!.docChanges[index].doc);
-                                    },
-                                    resizeDuration: const Duration(seconds: 2),
-                                    background: swipeBackground(
-                                        task,
-                                        category,
-                                        date,
-                                        status,
-                                        snapshot.data!.docChanges[index].doc),
-                                    secondaryBackground: swipeBackground(
-                                        task,
-                                        category,
-                                        date,
-                                        status,
-                                        snapshot.data!.docChanges[index].doc),
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
-                                      decoration: BoxDecoration(
-                                          // border: Border.all(color: bg!),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.white),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Checkbox(
-                                            checkColor: Colors.white,
-                                            fillColor:
-                                                MaterialStateProperty.all(bg),
-                                            value: snapshot
-                                                .data!
-                                                .docChanges[index]
-                                                .doc['status'],
-                                            shape: const CircleBorder(),
-                                            onChanged: (bool? value) {
-                                              snapshot.data!.docChanges[index]
-                                                  .doc.reference
-                                                  .update({
-                                                'task': snapshot
-                                                    .data!
-                                                    .docChanges[index]
-                                                    .doc['task'],
-                                                'Date': snapshot
-                                                    .data!
-                                                    .docChanges[index]
-                                                    .doc['Date'],
-                                                'category': snapshot
-                                                    .data!
-                                                    .docChanges[index]
-                                                    .doc['category'],
-                                                'status': value
-                                              });
-                                              setState(() {});
-                                            },
-                                          ),
-                                          snapshot.data!.docChanges[index]
-                                                  .doc['status']
-                                              ? SizedBox(
-                                                  width: 265,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        snapshot
-                                                            .data
-                                                            ?.docChanges[index]
-                                                            .doc['task'],
-                                                        style: const TextStyle(
-                                                            color: Vx.gray500,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough),
-                                                      ),
-                                                      Text(
-                                                        snapshot
-                                                            .data
-                                                            ?.docChanges[index]
-                                                            .doc['Date'],
-                                                        style: const TextStyle(
-                                                            fontSize: 10,
-                                                            color: Vx.gray500,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : SizedBox(
-                                                  width: 265,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        snapshot
-                                                            .data
-                                                            ?.docChanges[index]
-                                                            .doc['task'],
-                                                        style: const TextStyle(
-                                                            color: Vx.gray700,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text(
-                                                        snapshot
-                                                            .data
-                                                            ?.docChanges[index]
-                                                            .doc['Date'],
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                          color: Vx.gray500,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                        ],
-                                      ),
+                            return Dismissible(
+                              key: UniqueKey(),
+                              direction: DismissDirection.horizontal,
+                              onDismissed: (direction) {
+                                deleteItem(
+                                    snapshot.data!.docChanges[index].doc);
+                              },
+                              resizeDuration: const Duration(seconds: 2),
+                              background: swipeBackground(task, category, date,
+                                  status, snapshot.data!.docChanges[index].doc),
+                              secondaryBackground: swipeBackground(
+                                  task,
+                                  category,
+                                  date,
+                                  status,
+                                  snapshot.data!.docChanges[index].doc),
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 4),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.08,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                decoration: BoxDecoration(
+                                    // border: Border.all(color: bg!),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Checkbox(
+                                      checkColor: Colors.white,
+                                      fillColor: MaterialStateProperty.all(bg),
+                                      value: snapshot.data!.docChanges[index]
+                                          .doc['status'],
+                                      shape: const CircleBorder(),
+                                      onChanged: (bool? value) {
+                                        snapshot.data!.docChanges[index].doc
+                                            .reference
+                                            .update({
+                                          'task': snapshot.data!
+                                              .docChanges[index].doc['task'],
+                                          'Date': snapshot.data!
+                                              .docChanges[index].doc['Date'],
+                                          'category': snapshot
+                                              .data!
+                                              .docChanges[index]
+                                              .doc['category'],
+                                          'status': value
+                                        });
+                                        setState(() {});
+                                      },
                                     ),
-                                  )
-                                : Container();
+                                    snapshot.data!.docChanges[index]
+                                            .doc['status']
+                                        ? SizedBox(
+                                            width: 265,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  snapshot
+                                                      .data
+                                                      ?.docChanges[index]
+                                                      .doc['task'],
+                                                  style: const TextStyle(
+                                                      color: Vx.gray500,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      decoration: TextDecoration
+                                                          .lineThrough),
+                                                ),
+                                                Text(
+                                                  snapshot
+                                                      .data
+                                                      ?.docChanges[index]
+                                                      .doc['Date'],
+                                                  style: const TextStyle(
+                                                      fontSize: 10,
+                                                      color: Vx.gray500,
+                                                      decoration: TextDecoration
+                                                          .lineThrough),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : SizedBox(
+                                            width: 265,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  snapshot
+                                                      .data
+                                                      ?.docChanges[index]
+                                                      .doc['task'],
+                                                  style: const TextStyle(
+                                                      color: Vx.gray700,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  snapshot
+                                                      .data
+                                                      ?.docChanges[index]
+                                                      .doc['Date'],
+                                                  style: const TextStyle(
+                                                    fontSize: 10,
+                                                    color: Vx.gray500,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         );
                       }),

@@ -46,16 +46,22 @@ class _NewsPageState extends State<NewsPage> {
       'science',
       'general'
     ];
+    var countries = [
+      'au',
+      'in',
+      'us',
+    ];
     Random random = Random();
     String category = categoris[random.nextInt(6)];
-    News newsClass = News(category: category);
+    String country = countries[random.nextInt(countries.length)];
+    News newsClass = News(category: category, country: country);
     await newsClass.getNews();
     articles.addAll(newsClass.news);
     setState(() {});
   }
 
   getNews() async {
-    News newsClass = News(category: 'general');
+    News newsClass = News(category: 'general', country: 'in');
     await newsClass.getNews();
     articles = newsClass.news;
     setState(() {
@@ -89,7 +95,7 @@ class _NewsPageState extends State<NewsPage> {
                         topLeft: Radius.circular(7),
                         topRight: Radius.circular(7))),
                 padding: const EdgeInsets.only(
-                    bottom: 25, left: 12, right: 12, top: 12),
+                    bottom: 25, left: 15, right: 15, top: 15),
                 child: Column(children: [
                   Container(
                     clipBehavior: Clip.antiAlias,

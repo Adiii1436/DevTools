@@ -5,15 +5,17 @@ import 'package:devtools/Pages/news_page/article_model.dart';
 
 class News {
   final String category;
+  final String country;
   List<ArticleModel> news = [];
 
   News({
     required this.category,
+    required this.country,
   });
 
   Future<void> getNews() async {
     String url =
-        'https://newsapi.org/v2/top-headlines?country=in&category=$category&pageSize=10&apiKey=515792a3b64e476e8882c85246bd732a';
+        'https://newsapi.org/v2/top-headlines?country=$country&category=$category&language=en&pageSize=10&apiKey=515792a3b64e476e8882c85246bd732a';
 
     var response = await http.get(Uri.parse(url));
     var jsonData = jsonDecode(response.body);

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:devtools/Pages/news_page/article_model.dart';
 import 'package:devtools/Pages/news_page/news_view.dart';
 import 'package:devtools/widgets/themes.dart';
@@ -34,14 +36,21 @@ class _NewsCategoriesViewState extends State<NewsCategoriesView> {
   }
 
   getMoreNews() async {
-    News newsClass = News(category: widget.category);
+    var countries = [
+      'au',
+      'in',
+      'us',
+    ];
+    Random random = Random();
+    String country = countries[random.nextInt(countries.length)];
+    News newsClass = News(category: widget.category, country: country);
     await newsClass.getNews();
     articles.addAll(newsClass.news);
     setState(() {});
   }
 
   getNews() async {
-    News newsClass = News(category: widget.category);
+    News newsClass = News(category: widget.category, country: 'in');
     await newsClass.getNews();
     articles = newsClass.news;
     setState(() {
@@ -51,6 +60,7 @@ class _NewsCategoriesViewState extends State<NewsCategoriesView> {
 
   @override
   Widget build(BuildContext context) {
+    print(articles.length);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

@@ -43,20 +43,21 @@ class Items {
           title: "News",
           imageUrl:
               "assets/Images/morning_news_update_concept_illustration-removebg-preview.png",
-          color: "#9de47c",
+          color: "#6bc6a5",
           width: 130,
           height: 110),
+      Items(
+          title: "Weather",
+          imageUrl:
+              "assets/Images/Screenshot_from_2022-07-02_12-22-04-removebg-preview.png",
+          color: "#bdbdc7",
+          width: 180,
+          height: 100),
       Items(
           title: "Games",
           imageUrl: "assets/Images/3745105-removebg-preview.png",
           color: "544e50",
           width: 160,
-          height: 110),
-      Items(
-          title: "Resume",
-          imageUrl: "assets/Images/5215757-removebg-preview.png",
-          color: "#bdbdc7",
-          width: 120,
           height: 110),
       Items(
           title: "Github",
