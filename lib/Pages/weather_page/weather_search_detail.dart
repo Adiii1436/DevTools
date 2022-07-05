@@ -155,9 +155,31 @@ class _WeatherSearchDetailState extends State<WeatherSearchDetail> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(weathers.isNotEmpty ? "${weathers[0].temp}" : '',
-                            style: const TextStyle(
-                                fontSize: 50, fontWeight: FontWeight.bold)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                                weathers.isNotEmpty
+                                    ? "${weathers[0].temp}"
+                                    : '',
+                                style: const TextStyle(
+                                    fontSize: 55, fontWeight: FontWeight.bold)),
+                            Container(
+                              alignment: Alignment.topLeft,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.080,
+                              width: MediaQuery.of(context).size.width * 0.045,
+                              child: const Text(
+                                "°",
+                                style: TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const Text('C',
+                                style: TextStyle(
+                                    fontSize: 55, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                         const SizedBox(
                           height: 10,
                         ),

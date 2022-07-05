@@ -30,7 +30,7 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
       boxColor = Vx.blue400;
     } else if (widget.doc['desc'] == 'Clear') {
       image = 'assets/Images/sun-g4218ebaab_1280-removebg-preview.png';
-      boxColor = Vx.yellow400;
+      boxColor = Vx.yellow500;
     } else if (widget.doc['desc'] == 'Thunderstorm') {
       image = 'assets/Images/82ep_o74i_140728.jpg_3_-removebg-preview.png';
       boxColor = Vx.gray400;
@@ -38,22 +38,22 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
       image = 'assets/Images/cloud-g6cf4c508a_1280-removebg-preview.png';
       boxColor = Vx.gray400;
     }
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  widget.doc.reference
-                      .delete()
-                      .whenComplete(() => Navigator.pop(context));
-                },
-                icon: const Icon(Icons.delete_outline_outlined))
-          ],
-        ),
-        body: Container(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: boxColor,
+        elevation: 0.0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                widget.doc.reference
+                    .delete()
+                    .whenComplete(() => Navigator.pop(context));
+              },
+              icon: const Icon(Icons.delete_outline_outlined))
+        ],
+      ),
+      body: SafeArea(
+        child: Container(
           // color: Colors.red,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -113,9 +113,26 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
             const SizedBox(
               height: 10,
             ),
-            Text(widget.doc['temp'].toString(),
-                style:
-                    const TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(widget.doc['temp'].toString(),
+                    style: const TextStyle(
+                        fontSize: 55, fontWeight: FontWeight.bold)),
+                Container(
+                  alignment: Alignment.topLeft,
+                  height: MediaQuery.of(context).size.height * 0.080,
+                  width: MediaQuery.of(context).size.width * 0.045,
+                  child: const Text(
+                    "°",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Text('C',
+                    style:
+                        TextStyle(fontSize: 55, fontWeight: FontWeight.bold)),
+              ],
+            ),
             const SizedBox(
               height: 10,
             ),
