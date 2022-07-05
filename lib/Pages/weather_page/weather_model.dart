@@ -5,7 +5,6 @@ class WeatherModel {
   double temp;
   double wind;
   int humidity;
-  double feelsLike;
   int pressure;
   String icon;
 
@@ -14,7 +13,6 @@ class WeatherModel {
     required this.temp,
     required this.wind,
     required this.humidity,
-    required this.feelsLike,
     required this.pressure,
     required this.desc,
     required this.icon,

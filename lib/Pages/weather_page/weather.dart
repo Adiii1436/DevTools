@@ -25,7 +25,6 @@ class Weather {
           wind: jsonData['wind']['speed'],
           pressure: jsonData['main']['pressure'],
           humidity: jsonData['main']['humidity'],
-          feelsLike: jsonData['main']['feels_like'],
           desc: jsonData['weather'][0]['main'],
           icon: jsonData['weather'][0]['icon']);
 

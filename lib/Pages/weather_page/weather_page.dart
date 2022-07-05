@@ -196,8 +196,6 @@ class _WeatherPageState extends State<WeatherPage> {
                                               "temp": weathers[0].temp.ceil(),
                                               "wind": weathers[0].wind,
                                               "humidity": weathers[0].humidity,
-                                              "feelsLike":
-                                                  weathers[0].feelsLike,
                                               "pressure": weathers[0].pressure,
                                               "icon": weathers[0].icon,
                                             });
