@@ -18,16 +18,18 @@ class Weather {
     var response = await http.get(Uri.parse(url));
     var jsonData = jsonDecode(response.body);
 
-    WeatherModel weatherModel = WeatherModel(
-        cityName: jsonData['name'],
-        temp: jsonData['main']['temp'],
-        wind: jsonData['wind']['speed'],
-        pressure: jsonData['main']['pressure'],
-        humidity: jsonData['main']['humidity'],
-        feelsLike: jsonData['main']['feels_like'],
-        desc: jsonData['weather'][0]['main'],
-        icon: jsonData['weather'][0]['icon']);
+    if (jsonData['message'] != "city not found") {
+      WeatherModel weatherModel = WeatherModel(
+          cityName: jsonData['name'],
+          temp: jsonData['main']['temp'],
+          wind: jsonData['wind']['speed'],
+          pressure: jsonData['main']['pressure'],
+          humidity: jsonData['main']['humidity'],
+          feelsLike: jsonData['main']['feels_like'],
+          desc: jsonData['weather'][0]['main'],
+          icon: jsonData['weather'][0]['icon']);
 
-    weather.add(weatherModel);
+      weather.add(weatherModel);
+    }
   }
 }
