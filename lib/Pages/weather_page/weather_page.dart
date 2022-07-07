@@ -23,6 +23,32 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: InkWell(
+            onTap: () {
+              ref.get().then((QuerySnapshot snapshot) async {
+                for (var element in snapshot.docChanges) {
+                  Weather weatherClass = Weather(city: element.doc['cityName']);
+                  await weatherClass.getWeather();
+                  weathers = weatherClass.weather;
+                  if (weathers.isNotEmpty) {
+                    setState(() {
+                      element.doc.reference.update({
+                        "cityName": weathers[0].cityName,
+                        "desc": weathers[0].desc,
+                        "temp": weathers[0].temp.ceil(),
+                        "wind": weathers[0].wind,
+                        "humidity": weathers[0].humidity,
+                        "pressure": weathers[0].pressure,
+                        "icon": weathers[0].icon,
+                      });
+                    });
+                  }
+                }
+              });
+            },
+            child: Container(
+                margin: const EdgeInsets.all(30),
+                child: const Icon(Icons.refresh))),
         body: Container(
           padding: const EdgeInsets.all(20),
           child: Column(children: [
@@ -44,7 +70,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                   crossAxisCount: 2,
                                   mainAxisSpacing: 8,
                                   crossAxisSpacing: 8,
-                                  childAspectRatio: 0.84 / 1),
+                                  childAspectRatio: 0.99 / 1),
                           itemBuilder: (context, index) {
                             getImage() {
                               if (snapshot
@@ -185,58 +211,58 @@ class _WeatherPageState extends State<WeatherPage> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          addToFirebase() {
-                                            snapshot.data?.docChanges[index].doc
-                                                .reference
-                                                .update({
-                                              "cityName": weathers[0].cityName,
-                                              "desc": weathers[0].desc,
-                                              "temp": weathers[0].temp.ceil(),
-                                              "wind": weathers[0].wind,
-                                              "humidity": weathers[0].humidity,
-                                              "pressure": weathers[0].pressure,
-                                              "icon": weathers[0].icon,
-                                            });
-                                          }
+                                      // InkWell(
+                                      //   onTap: () {
+                                      //     addToFirebase() {
+                                      //       snapshot.data?.docChanges[index].doc
+                                      //           .reference
+                                      //           .update({
+                                      //         "cityName": weathers[0].cityName,
+                                      //         "desc": weathers[0].desc,
+                                      //         "temp": weathers[0].temp.ceil(),
+                                      //         "wind": weathers[0].wind,
+                                      //         "humidity": weathers[0].humidity,
+                                      //         "pressure": weathers[0].pressure,
+                                      //         "icon": weathers[0].icon,
+                                      //       });
+                                      //     }
 
-                                          getWeather() async {
-                                            Weather weatherClass = Weather(
-                                                city: snapshot
-                                                    .data
-                                                    ?.docChanges[index]
-                                                    .doc['cityName']);
-                                            await weatherClass.getWeather();
-                                            weathers = weatherClass.weather;
-                                            addToFirebase();
-                                            setState(() {});
-                                          }
+                                      //     getWeather() async {
+                                      //       Weather weatherClass = Weather(
+                                      //           city: snapshot
+                                      //               .data
+                                      //       /        ?.docChanges[index]
+                                      //               .doc['cityName']);
+                                      //       await weatherClass.getWeather();
+                                      //       weathers = weatherClass.weather;
+                                      //       addToFirebase();
+                                      //       setState(() {});
+                                      //     }
 
-                                          getWeather();
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.035,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                              // color: Colors.teal,
-                                              border: Border.all(
-                                                  color: Colors.teal),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Text(
-                                            "Refresh",
-                                            style: TextStyle(
-                                                color: Colors.teal,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      )
+                                      //     getWeather();
+                                      //   },
+                                      //   child: Container(
+                                      //     alignment: Alignment.center,
+                                      //     height: MediaQuery.of(context)
+                                      //             .size
+                                      //             .height *
+                                      //         0.035,
+                                      //     width:
+                                      //         MediaQuery.of(context).size.width,
+                                      //     decoration: BoxDecoration(
+                                      //         // color: Colors.teal,
+                                      //         border: Border.all(
+                                      //             color: Colors.teal),
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(10)),
+                                      //     child: const Text(
+                                      //       "Refresh",
+                                      //       style: TextStyle(
+                                      //           color: Colors.teal,
+                                      //           fontWeight: FontWeight.bold),
+                                      //     ),
+                                      //   ),
+                                      // )
                                     ]),
                               ),
                             );

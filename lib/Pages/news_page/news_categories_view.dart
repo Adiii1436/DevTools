@@ -60,7 +60,6 @@ class _NewsCategoriesViewState extends State<NewsCategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    print(articles.length);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
