@@ -40,10 +40,12 @@ class _TicTacToePageState extends State<TicTacToePage> {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              inputs[index] = currentPlayer;
-                              changePlayer();
-                              whoisWinner();
-                              checkForDraw();
+                              if (inputs[index].isEmpty) {
+                                inputs[index] = currentPlayer;
+                                changePlayer();
+                                whoisWinner();
+                                checkForDraw();
+                              }
                             });
                           },
                           child: Container(
@@ -112,12 +114,16 @@ class _TicTacToePageState extends State<TicTacToePage> {
     }
 
     if (draw) {
-      showGameOverMessage("It's a draw");
+      showGameOverMessage("It's a draw", 'draw');
       gameEnd = true;
     }
   }
 
   whoisWinner() {
+    if (gameEnd) {
+      return;
+    }
+
     List<List<int>> positions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -136,19 +142,23 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
       if (position0.isNotEmpty) {
         if (position0 == position1 && position0 == position2) {
-          showGameOverMessage('$position1 won');
+          showGameOverMessage('$position1 won', position1);
           gameEnd = true;
         }
       }
     }
   }
 
-  showGameOverMessage(String message) {
+  showGameOverMessage(String message, String position) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
           elevation: 0.0,
           duration: const Duration(seconds: 4),
-          backgroundColor: Vx.fuchsia400,
+          backgroundColor: position == 'draw'
+              ? Vx.fuchsia400
+              : position == 'X'
+                  ? HexColor("#f4717f")
+                  : HexColor("#6bc6a5"),
           content: Text(
             message,
             textAlign: TextAlign.center,
