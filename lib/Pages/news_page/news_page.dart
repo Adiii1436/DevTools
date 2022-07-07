@@ -104,19 +104,17 @@ class _NewsPageState extends State<NewsPage> {
                     margin: const EdgeInsets.only(bottom: 15),
                     height: 60,
                     width: MediaQuery.of(context).size.width * 0.94,
-                    child: Expanded(
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: categories.length,
-                          itemBuilder: (context, index) {
-                            return HeaderList(
-                              name: categories[index].name,
-                              imgUrl: categories[index].imgUrl,
-                            );
-                          }),
-                    ),
+                    child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          return HeaderList(
+                            name: categories[index].name,
+                            imgUrl: categories[index].imgUrl,
+                          );
+                        }),
                   ),
                   Expanded(
                     child: Container(

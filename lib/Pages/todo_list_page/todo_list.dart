@@ -15,11 +15,9 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  // bool isChecked = false;
   final ref = FirebaseFirestore.instance.collection('devTools_todo');
   final ref1 = FirebaseFirestore.instance.collection('devTools_categories');
   final todayDate = DateFormat('dd-MM-yy').format(DateTime.now());
-  bool flag = false;
 
   List<Color?> myColors = [
     Colors.red[600],
@@ -29,7 +27,6 @@ class _TodoListPageState extends State<TodoListPage> {
     Colors.pink[600],
     Colors.brown[600]
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,35 +76,28 @@ class _TodoListPageState extends State<TodoListPage> {
                 ).py12().px1(),
                 SizedBox(
                   height: 150,
-                  child: Expanded(
-                      child: StreamBuilder(
-                          stream: ref1.snapshots(),
-                          builder:
-                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            return GridView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 1,
-                                        childAspectRatio: 0.7 / 1),
-                                itemCount: snapshot.hasData
-                                    ? snapshot.data?.docChanges.length
-                                    : 1,
-                                itemBuilder: (context, index) {
-                                  if (snapshot.data?.docChanges.length ==
-                                      null) {
-                                    flag = false;
-                                  } else {
-                                    flag = true;
-                                  }
-                                  Random random = Random();
-                                  Color? bg = myColors[random.nextInt(6)];
-                                  return flag
-                                      ? InkWell(
-                                          onTap: () {
-                                            Navigator.push(
+                  child: StreamBuilder(
+                      stream: ref1.snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        return GridView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    childAspectRatio: 0.7 / 1),
+                            itemCount: snapshot.hasData
+                                ? snapshot.data?.docChanges.length
+                                : 1,
+                            itemBuilder: (context, index) {
+                              Random random = Random();
+                              Color? bg = myColors[random.nextInt(6)];
+                              return snapshot.hasData
+                                  ? InkWell(
+                                      onTap: () {
+                                        Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
@@ -117,37 +107,32 @@ class _TodoListPageState extends State<TodoListPage> {
                                                               .docChanges[index]
                                                               .doc,
                                                           bg: bg!,
-                                                        ))).then(
-                                                (value) => setState(() {}));
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.centerLeft,
-                                            margin: const EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(color: bg!),
-                                                color: Colors.white),
-                                            child: Text(
-                                                    snapshot
-                                                        .data
-                                                        ?.docChanges[index]
-                                                        .doc['category'],
-                                                    style: const TextStyle(
-                                                        fontSize: 19,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Vx.gray700))
-                                                .px16(),
-                                          ),
-                                        )
-                                      : Container(
-                                          width: 100,
-                                          height: 100,
-                                          color: Colors.white,
-                                        );
-                                });
-                          })),
+                                                        )))
+                                            .then((value) => setState(() {}));
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        margin: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(color: bg!),
+                                            color: Colors.white),
+                                        child: Text(
+                                                snapshot.data?.docChanges[index]
+                                                    .doc['category'],
+                                                style: const TextStyle(
+                                                    fontSize: 19,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Vx.gray700))
+                                            .px16(),
+                                      ),
+                                    )
+                                  : Container(
+                                      color: Colors.white,
+                                    );
+                            });
+                      }),
                 ),
                 const Text(
                   "TODAY'S TASKS",
