@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class EditNote extends StatefulWidget {
   final Color? mycolor;
-  final DocumentSnapshot docToEdit;
+  final docToEdit;
 
   const EditNote({Key? key, required this.docToEdit, required this.mycolor})
       : super(key: key);
@@ -21,9 +21,8 @@ class _EditNoteState extends State<EditNote> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    title = TextEditingController(text: widget.docToEdit['title']);
-    content = TextEditingController(text: widget.docToEdit['content']);
+    title = TextEditingController(text: widget.docToEdit.data()!['title']);
+    content = TextEditingController(text: widget.docToEdit.data()!['content']);
     super.initState();
   }
 
@@ -53,14 +52,6 @@ class _EditNoteState extends State<EditNote> {
                 },
                 splashRadius: 20,
                 icon: const Icon(Icons.delete_outlined))
-            // IconButton(
-            //     onPressed: () {},
-            //     splashRadius: 20,
-            //     icon: Icon(Icons.archive_outlined)),
-            // IconButton(
-            //     onPressed: () {},
-            //     splashRadius: 20,
-            //     icon: Icon(Icons.edit_outlined))
           ],
         ),
         body: Container(

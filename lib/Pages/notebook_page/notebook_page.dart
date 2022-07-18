@@ -47,10 +47,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => AddNote()))
-                  .then((value) => setState(
-                        () {},
-                      ));
+                  context, MaterialPageRoute(builder: (_) => AddNote()));
             },
             child: const Icon(
               Icons.add,
@@ -87,8 +84,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
                 staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                 crossAxisCount: 1,
                 physics: const BouncingScrollPhysics(),
-                itemCount:
-                    snapshot.hasData ? snapshot.data?.docChanges.length : 0,
+                itemCount: snapshot.hasData ? snapshot.data?.docs.length : 0,
                 itemBuilder: (context, index) {
                   Random random = Random();
                   Color? bg = myColors[random.nextInt(7)];
@@ -98,12 +94,9 @@ class _NoteBookPageState extends State<NoteBookPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditNote(
-                                    docToEdit:
-                                        snapshot.data!.docChanges[index].doc,
+                                    docToEdit: snapshot.data!.docs[index],
                                     mycolor: bg,
-                                  ))).then((value) => setState(
-                            () {},
-                          ));
+                                  )));
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
@@ -116,7 +109,7 @@ class _NoteBookPageState extends State<NoteBookPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              snapshot.data?.docChanges[index].doc['title'],
+                              snapshot.data?.docs[index]['title'],
                               style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
@@ -124,14 +117,13 @@ class _NoteBookPageState extends State<NoteBookPage> {
                               height: 5,
                             ),
                             Text(
-                              (snapshot.data?.docChanges[index].doc['content']
+                              (snapshot.data?.docs[index]['content']
                                               .toString()
                                               .length ??
                                           0) <
                                       250
-                                  ? snapshot
-                                      .data?.docChanges[index].doc['content']
-                                  : "${snapshot.data?.docChanges[index].doc['content'].toString().substring(0, 250)}.........",
+                                  ? snapshot.data?.docs[index]['content']
+                                  : "${snapshot.data?.docs[index]['content'].toString().substring(0, 250)}.........",
                               style: const TextStyle(fontSize: 16),
                             )
                           ],

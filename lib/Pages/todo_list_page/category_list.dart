@@ -8,7 +8,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../widgets/themes.dart';
 
 class CategoryList extends StatefulWidget {
-  final DocumentSnapshot category;
+  final category;
   final Color bg;
 
   const CategoryList({super.key, required this.category, required this.bg});
@@ -98,7 +98,7 @@ class _CategoryListState extends State<CategoryList> {
                 child: StreamBuilder(
                     stream: ref.snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      final lengthDoc = snapshot.data?.docChanges.length;
+                      final lengthDoc = snapshot.data?.docs.length;
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
@@ -106,19 +106,16 @@ class _CategoryListState extends State<CategoryList> {
                         itemBuilder: (context, index) {
                           Random random = Random();
                           Color? bg = myColors[random.nextInt(6)];
-                          final task =
-                              snapshot.data?.docChanges[index].doc['task'];
-                          final status =
-                              snapshot.data?.docChanges[index].doc['status'];
+                          final task = snapshot.data?.docs[index]['task'];
+                          final status = snapshot.data?.docs[index]['status'];
                           final category =
-                              snapshot.data?.docChanges[index].doc['category'];
-                          final date =
-                              snapshot.data!.docChanges[index].doc['Date'];
+                              snapshot.data?.docs[index]['category'];
+                          final date = snapshot.data!.docs[index]['Date'];
                           return Dismissible(
                             key: UniqueKey(),
                             direction: DismissDirection.horizontal,
                             onDismissed: (direction) {
-                              deleteItem(snapshot.data!.docChanges[index].doc);
+                              snapshot.data!.docs[index].reference.delete();
                             },
                             resizeDuration: const Duration(seconds: 2),
                             background: swipeBackground(
@@ -126,14 +123,14 @@ class _CategoryListState extends State<CategoryList> {
                                 category,
                                 date,
                                 status,
-                                snapshot.data!.docChanges[index].doc,
+                                snapshot.data!.docs[index].reference,
                                 ref),
                             secondaryBackground: swipeBackground(
                                 task,
                                 category,
                                 date,
                                 status,
-                                snapshot.data!.docChanges[index].doc,
+                                snapshot.data!.docs[index].reference,
                                 ref),
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 4),
@@ -148,28 +145,24 @@ class _CategoryListState extends State<CategoryList> {
                                   Checkbox(
                                     checkColor: Colors.white,
                                     fillColor: MaterialStateProperty.all(bg),
-                                    value: snapshot
-                                        .data!.docChanges[index].doc['status'],
+                                    value: snapshot.data!.docs[index]['status'],
                                     shape: const CircleBorder(),
                                     onChanged: (bool? value) {
                                       setState(() {
-                                        snapshot.data!.docChanges[index].doc
-                                            .reference
+                                        snapshot.data!.docs[index].reference
                                             .update({
-                                          'task': snapshot.data!
-                                              .docChanges[index].doc['task'],
-                                          'Date': snapshot.data!
-                                              .docChanges[index].doc['Date'],
-                                          'category': snapshot
-                                              .data!
-                                              .docChanges[index]
-                                              .doc['category'],
+                                          'task': snapshot.data!.docs[index]
+                                              ['task'],
+                                          'Date': snapshot.data!.docs[index]
+                                              ['Date'],
+                                          'category': snapshot.data!.docs[index]
+                                              ['category'],
                                           'status': value
                                         });
                                       });
                                     },
                                   ),
-                                  snapshot.data!.docChanges[index].doc['status']
+                                  snapshot.data!.docs[index]['status']
                                       ? SizedBox(
                                           width: 265,
                                           child: Row(
@@ -177,8 +170,8 @@ class _CategoryListState extends State<CategoryList> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                snapshot.data?.docChanges[index]
-                                                    .doc['task'],
+                                                snapshot.data?.docs[index]
+                                                    ['task'],
                                                 style: const TextStyle(
                                                     color: Vx.gray500,
                                                     fontWeight: FontWeight.bold,
@@ -186,8 +179,8 @@ class _CategoryListState extends State<CategoryList> {
                                                         .lineThrough),
                                               ),
                                               Text(
-                                                snapshot.data?.docChanges[index]
-                                                    .doc['Date'],
+                                                snapshot.data?.docs[index]
+                                                    ['Date'],
                                                 style: const TextStyle(
                                                     color: Vx.gray500,
                                                     decoration: TextDecoration
@@ -203,16 +196,16 @@ class _CategoryListState extends State<CategoryList> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                snapshot.data?.docChanges[index]
-                                                    .doc['task'],
+                                                snapshot.data?.docs[index]
+                                                    ['task'],
                                                 style: const TextStyle(
                                                     color: Vx.gray700,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                snapshot.data?.docChanges[index]
-                                                    .doc['Date'],
+                                                snapshot.data?.docs[index]
+                                                    ['Date'],
                                                 style: const TextStyle(
                                                   color: Vx.gray700,
                                                 ),
@@ -235,21 +228,16 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  deleteItem(DocumentSnapshot document) {
-    document.reference.delete();
-    setState((() {}));
-  }
-
   void undoDeletion(String task, String category, String date, bool status,
-      DocumentSnapshot document, ref) {
-    document.reference.delete();
+      DocumentReference document, ref) {
+    document.delete();
     ref.add(
         {'task': task, 'Date': date, 'category': category, 'status': status});
     setState(() {});
   }
 
   Container swipeBackground(String task, String category, String date,
-      bool status, DocumentSnapshot document, ref) {
+      bool status, DocumentReference document, ref) {
     return Container(
       decoration: BoxDecoration(color: MyTheme.creamColor),
       child: Row(

@@ -89,7 +89,7 @@ class _TodoListPageState extends State<TodoListPage> {
                                     crossAxisCount: 1,
                                     childAspectRatio: 0.7 / 1),
                             itemCount: snapshot.hasData
-                                ? snapshot.data?.docChanges.length
+                                ? snapshot.data?.docs.length
                                 : 1,
                             itemBuilder: (context, index) {
                               Random random = Random();
@@ -103,9 +103,8 @@ class _TodoListPageState extends State<TodoListPage> {
                                                     builder: (context) =>
                                                         CategoryList(
                                                           category: snapshot
-                                                              .data!
-                                                              .docChanges[index]
-                                                              .doc,
+                                                              .data!.docs[index]
+                                                              .data(),
                                                           bg: bg!,
                                                         )))
                                             .then((value) => setState(() {}));
@@ -119,8 +118,8 @@ class _TodoListPageState extends State<TodoListPage> {
                                             border: Border.all(color: bg!),
                                             color: Colors.white),
                                         child: Text(
-                                                snapshot.data?.docChanges[index]
-                                                    .doc['category'],
+                                                snapshot.data!.docs[index]
+                                                    ['category'],
                                                 style: const TextStyle(
                                                     fontSize: 19,
                                                     fontWeight: FontWeight.w600,
@@ -146,7 +145,7 @@ class _TodoListPageState extends State<TodoListPage> {
                       stream: ref.snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        final lengthDoc = snapshot.data?.docChanges.length;
+                        final lengthDoc = snapshot.data?.docs.length;
                         return ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
@@ -154,30 +153,26 @@ class _TodoListPageState extends State<TodoListPage> {
                           itemBuilder: (context, index) {
                             Random random = Random();
                             Color? bg = myColors[random.nextInt(6)];
-                            final task =
-                                snapshot.data?.docChanges[index].doc['task'];
-                            final status =
-                                snapshot.data?.docChanges[index].doc['status'];
-                            final category = snapshot
-                                .data?.docChanges[index].doc['category'];
-                            final date =
-                                snapshot.data?.docChanges[index].doc['Date'];
+                            final task = snapshot.data?.docs[index]['task'];
+                            final status = snapshot.data?.docs[index]['status'];
+                            final category =
+                                snapshot.data?.docs[index]['category'];
+                            final date = snapshot.data?.docs[index]['Date'];
                             return Dismissible(
                               key: UniqueKey(),
                               direction: DismissDirection.horizontal,
                               onDismissed: (direction) {
-                                deleteItem(
-                                    snapshot.data!.docChanges[index].doc);
+                                snapshot.data!.docs[index].reference.delete();
                               },
                               resizeDuration: const Duration(seconds: 2),
                               background: swipeBackground(task, category, date,
-                                  status, snapshot.data!.docChanges[index].doc),
+                                  status, snapshot.data!.docs[index].reference),
                               secondaryBackground: swipeBackground(
                                   task,
                                   category,
                                   date,
                                   status,
-                                  snapshot.data!.docChanges[index].doc),
+                                  snapshot.data!.docs[index].reference),
                               child: Container(
                                 margin: const EdgeInsets.symmetric(vertical: 4),
                                 height:
@@ -193,28 +188,24 @@ class _TodoListPageState extends State<TodoListPage> {
                                     Checkbox(
                                       checkColor: Colors.white,
                                       fillColor: MaterialStateProperty.all(bg),
-                                      value: snapshot.data!.docChanges[index]
-                                          .doc['status'],
+                                      value: snapshot.data!.docs[index]
+                                          ['status'],
                                       shape: const CircleBorder(),
                                       onChanged: (bool? value) {
-                                        snapshot.data!.docChanges[index].doc
-                                            .reference
+                                        snapshot.data!.docs[index].reference
                                             .update({
-                                          'task': snapshot.data!
-                                              .docChanges[index].doc['task'],
-                                          'Date': snapshot.data!
-                                              .docChanges[index].doc['Date'],
-                                          'category': snapshot
-                                              .data!
-                                              .docChanges[index]
-                                              .doc['category'],
+                                          'task': snapshot.data!.docs[index]
+                                              ['task'],
+                                          'Date': snapshot.data!.docs[index]
+                                              ['Date'],
+                                          'category': snapshot.data!.docs[index]
+                                              ['category'],
                                           'status': value
                                         });
                                         setState(() {});
                                       },
                                     ),
-                                    snapshot.data!.docChanges[index]
-                                            .doc['status']
+                                    snapshot.data!.docs[index]['status']
                                         ? SizedBox(
                                             width: 265,
                                             child: Row(
@@ -223,10 +214,8 @@ class _TodoListPageState extends State<TodoListPage> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  snapshot
-                                                      .data
-                                                      ?.docChanges[index]
-                                                      .doc['task'],
+                                                  snapshot.data?.docs[index]
+                                                      ['task'],
                                                   style: const TextStyle(
                                                       color: Vx.gray500,
                                                       fontWeight:
@@ -235,10 +224,8 @@ class _TodoListPageState extends State<TodoListPage> {
                                                           .lineThrough),
                                                 ),
                                                 Text(
-                                                  snapshot
-                                                      .data
-                                                      ?.docChanges[index]
-                                                      .doc['Date'],
+                                                  snapshot.data?.docs[index]
+                                                      ['Date'],
                                                   style: const TextStyle(
                                                       fontSize: 10,
                                                       color: Vx.gray500,
@@ -256,20 +243,16 @@ class _TodoListPageState extends State<TodoListPage> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  snapshot
-                                                      .data
-                                                      ?.docChanges[index]
-                                                      .doc['task'],
+                                                  snapshot.data?.docs[index]
+                                                      ['task'],
                                                   style: const TextStyle(
                                                       color: Vx.gray700,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  snapshot
-                                                      .data
-                                                      ?.docChanges[index]
-                                                      .doc['Date'],
+                                                  snapshot.data?.docs[index]
+                                                      ['Date'],
                                                   style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Vx.gray500,
@@ -294,21 +277,16 @@ class _TodoListPageState extends State<TodoListPage> {
     );
   }
 
-  deleteItem(DocumentSnapshot document) {
-    document.reference.delete();
-    setState((() {}));
-  }
-
   void undoDeletion(String task, String category, String date, bool status,
-      DocumentSnapshot document) {
-    document.reference.delete();
+      DocumentReference document) {
+    document.delete();
     ref.add(
         {'task': task, 'Date': date, 'category': category, 'status': status});
     setState(() {});
   }
 
   Container swipeBackground(String task, String category, String date,
-      bool status, DocumentSnapshot document) {
+      bool status, DocumentReference document) {
     return Container(
       decoration: BoxDecoration(color: MyTheme.creamColor),
       child: Row(

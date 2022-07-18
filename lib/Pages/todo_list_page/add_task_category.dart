@@ -7,7 +7,7 @@ import 'package:devtools/Pages/todo_list_page/add_categories.dart';
 import '../../widgets/themes.dart';
 
 class AddTaskCategory extends StatefulWidget {
-  final DocumentSnapshot category;
+  final category;
 
   const AddTaskCategory({
     Key? key,
@@ -207,16 +207,6 @@ class _AddTaskCategoryState extends State<AddTaskCategory> {
               ],
             ),
           ),
-          // const SizedBox(
-          //   height: 90,
-          // ),
-          // Container(
-          //   width: 270,
-          //   child: Text(
-          //     "If you'll create a task for future then it will show up on the dashboard on that particular day.",
-          //     style: TextStyle(fontSize: 12, color: Vx.gray500),
-          //   ),
-          // )
         ]),
       )),
     );

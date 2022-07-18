@@ -29,14 +29,6 @@ class AddNote extends StatelessWidget {
                 },
                 splashRadius: 20,
                 icon: const Icon(Icons.save_outlined)),
-            // IconButton(
-            //     onPressed: () {},
-            //     splashRadius: 20,
-            //     icon: Icon(Icons.archive_outlined)),
-            // IconButton(
-            //     onPressed: () {},
-            //     splashRadius: 20,
-            //     icon: Icon(Icons.edit_outlined))
           ],
         ),
         body: Container(

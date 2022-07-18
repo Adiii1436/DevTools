@@ -26,13 +26,13 @@ class _WeatherPageState extends State<WeatherPage> {
         floatingActionButton: InkWell(
             onTap: () {
               ref.get().then((QuerySnapshot snapshot) async {
-                for (var element in snapshot.docChanges) {
-                  Weather weatherClass = Weather(city: element.doc['cityName']);
+                for (var element in snapshot.docs) {
+                  Weather weatherClass = Weather(city: element['cityName']);
                   await weatherClass.getWeather();
                   weathers = weatherClass.weather;
                   if (weathers.isNotEmpty) {
                     setState(() {
-                      element.doc.reference.update({
+                      element.reference.update({
                         "cityName": weathers[0].cityName,
                         "desc": weathers[0].desc,
                         "temp": weathers[0].temp.ceil(),
@@ -61,9 +61,8 @@ class _WeatherPageState extends State<WeatherPage> {
                     stream: ref.snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       return GridView.builder(
-                          itemCount: snapshot.hasData
-                              ? snapshot.data?.docChanges.length
-                              : 0,
+                          itemCount:
+                              snapshot.hasData ? snapshot.data?.docs.length : 0,
                           scrollDirection: Axis.vertical,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,31 +72,25 @@ class _WeatherPageState extends State<WeatherPage> {
                                   childAspectRatio: 0.99 / 1),
                           itemBuilder: (context, index) {
                             getImage() {
-                              if (snapshot
-                                      .data?.docChanges[index].doc['desc'] ==
+                              if (snapshot.data?.docs[index]['desc'] ==
                                   'Clouds') {
                                 image =
                                     'assets/Images/82ep_o74i_140728.jpg_1_-removebg-preview.png';
-                              } else if (snapshot.data?.docChanges[index]
-                                          .doc['desc'] ==
+                              } else if (snapshot.data?.docs[index]['desc'] ==
                                       'Rain' ||
-                                  snapshot.data?.docChanges[index]
-                                          .doc['desc'] ==
+                                  snapshot.data?.docs[index]['desc'] ==
                                       'Drizzle') {
                                 image =
                                     'assets/Images/82ep_o74i_140728.jpg_4_-removebg-preview.png';
-                              } else if (snapshot
-                                      .data?.docChanges[index].doc['desc'] ==
+                              } else if (snapshot.data?.docs[index]['desc'] ==
                                   'Clear') {
                                 image =
                                     'assets/Images/82ep_o74i_140728.jpg-removebg-preview.png';
-                              } else if (snapshot
-                                      .data?.docChanges[index].doc['desc'] ==
+                              } else if (snapshot.data?.docs[index]['desc'] ==
                                   'Thunderstorm') {
                                 image =
                                     'assets/Images/82ep_o74i_140728.jpg_3_-removebg-preview.png';
-                              } else if (snapshot
-                                      .data?.docChanges[index].doc['desc'] ==
+                              } else if (snapshot.data?.docs[index]['desc'] ==
                                   'Snow') {
                                 image =
                                     'assets/Images/82ep_o74i_140728.jpg_5_-removebg-preview.png';
@@ -112,9 +105,8 @@ class _WeatherPageState extends State<WeatherPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => WeatherPageDetail(
-                                            doc: snapshot.data!
-                                                .docChanges[index].doc))).then(
-                                    (value) => setState(() {}));
+                                            doc: snapshot.data!.docs[index]
+                                                .data())));
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -133,7 +125,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                           Row(
                                             children: [
                                               Text(
-                                                  "${snapshot.data?.docChanges[index].doc['temp']}",
+                                                  "${snapshot.data?.docs[index]['temp']}",
                                                   style: const TextStyle(
                                                     fontSize: 40,
                                                   )),
@@ -162,13 +154,13 @@ class _WeatherPageState extends State<WeatherPage> {
                                         ],
                                       ),
                                       Text(
-                                        "${snapshot.data?.docChanges[index].doc['cityName']}",
+                                        "${snapshot.data?.docs[index]['cityName']}",
                                         style: const TextStyle(
                                           fontSize: 17,
                                         ),
                                       ),
                                       Text(
-                                        "${snapshot.data?.docChanges[index].doc['desc']}",
+                                        "${snapshot.data?.docs[index]['desc']}",
                                         style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black45),
@@ -187,7 +179,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                                 size: 15,
                                               ),
                                               Text(
-                                                '${snapshot.data?.docChanges[index].doc['humidity']}%',
+                                                '${snapshot.data?.docs[index]['humidity']}%',
                                                 style: const TextStyle(
                                                     fontSize: 12),
                                               ),
@@ -200,7 +192,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                                 size: 15,
                                               ),
                                               Text(
-                                                '${snapshot.data?.docChanges[index].doc['wind']} m/s',
+                                                '${snapshot.data?.docs[index]['wind']} m/s',
                                                 style: const TextStyle(
                                                     fontSize: 12),
                                               ),
@@ -211,58 +203,6 @@ class _WeatherPageState extends State<WeatherPage> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      // InkWell(
-                                      //   onTap: () {
-                                      //     addToFirebase() {
-                                      //       snapshot.data?.docChanges[index].doc
-                                      //           .reference
-                                      //           .update({
-                                      //         "cityName": weathers[0].cityName,
-                                      //         "desc": weathers[0].desc,
-                                      //         "temp": weathers[0].temp.ceil(),
-                                      //         "wind": weathers[0].wind,
-                                      //         "humidity": weathers[0].humidity,
-                                      //         "pressure": weathers[0].pressure,
-                                      //         "icon": weathers[0].icon,
-                                      //       });
-                                      //     }
-
-                                      //     getWeather() async {
-                                      //       Weather weatherClass = Weather(
-                                      //           city: snapshot
-                                      //               .data
-                                      //       /        ?.docChanges[index]
-                                      //               .doc['cityName']);
-                                      //       await weatherClass.getWeather();
-                                      //       weathers = weatherClass.weather;
-                                      //       addToFirebase();
-                                      //       setState(() {});
-                                      //     }
-
-                                      //     getWeather();
-                                      //   },
-                                      //   child: Container(
-                                      //     alignment: Alignment.center,
-                                      //     height: MediaQuery.of(context)
-                                      //             .size
-                                      //             .height *
-                                      //         0.035,
-                                      //     width:
-                                      //         MediaQuery.of(context).size.width,
-                                      //     decoration: BoxDecoration(
-                                      //         // color: Colors.teal,
-                                      //         border: Border.all(
-                                      //             color: Colors.teal),
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(10)),
-                                      //     child: const Text(
-                                      //       "Refresh",
-                                      //       style: TextStyle(
-                                      //           color: Colors.teal,
-                                      //           fontWeight: FontWeight.bold),
-                                      //     ),
-                                      //   ),
-                                      // )
                                     ]),
                               ),
                             );

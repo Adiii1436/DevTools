@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class WeatherPageDetail extends StatefulWidget {
-  final DocumentSnapshot doc;
+  final doc;
   const WeatherPageDetail({
     Key? key,
     required this.doc,
