@@ -40,7 +40,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              if (inputs[index].isEmpty) {
+                              if (inputs[index].isEmpty && gameEnd != true) {
                                 inputs[index] = currentPlayer;
                                 changePlayer();
                                 whoisWinner();
