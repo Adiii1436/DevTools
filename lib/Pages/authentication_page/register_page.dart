@@ -1,6 +1,6 @@
+import 'package:devtools/Pages/home_page/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -21,6 +21,8 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email.text, password: _password.text);
+      final user = FirebaseAuth.instance.currentUser;
+      await user!.sendEmailVerification();
       setState(() {
         _isLoading = false;
       });
@@ -33,6 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
         showSnackBar('weak password');
       } else if (e.code == 'invalid-email') {
         showSnackBar('invalid email');
+      } else if (e.code == 'email-already-in-use') {
+        showSnackBar('email already in use');
       } else {
         if (_email.text.isEmpty || _password.text.isEmpty) {
           showSnackBar('Please enter your email and password');
@@ -59,7 +63,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _switchBack() {
-    Navigator.pop(context);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Home()));
   }
 
   @override
@@ -147,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             )),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -21,7 +21,9 @@ void main() {
     home: const Home(),
     routes: {
       MyRoute.homeRoute: (context) => const HomePage(),
-      MyRoute.loginRoute: ((context) => const LoginPage())
+      MyRoute.loginRoute: ((context) => const LoginPage(
+            notVerified: false,
+          ))
     },
   ));
 }

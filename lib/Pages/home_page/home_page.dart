@@ -1,5 +1,4 @@
 import 'package:devtools/Pages/home_page/home.dart';
-import 'package:devtools/widgets/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -24,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text(
-            "DevTools",
+            'DevTools',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
                   _pushToLoginpage();
                 },
                 icon: const Icon(Icons.logout_rounded),
-                // icon:    Image.asset("assets/Icons/user(1).png"),
               ),
             )
           ],
