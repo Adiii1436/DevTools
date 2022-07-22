@@ -24,8 +24,8 @@ class Items {
           title: "Todo list",
           imageUrl: "assets/Images/smartphone-gcd4d097f4_1280.png",
           color: "#f4717f",
-          width: 99,
-          height: 119.7),
+          width: 96,
+          height: 116.6),
       Items(
           title: "Calculator",
           imageUrl: "assets/Images/3609083-removebg-preview.png",
