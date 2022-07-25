@@ -60,11 +60,11 @@ class Items {
           width: 160,
           height: 110),
       Items(
-          title: "Github",
-          imageUrl: "assets/Images/GitHub-Code-Repository-removebg-preview.png",
+          title: "Image to Pdf",
+          imageUrl: "assets/Images/file.png",
           color: "#dc9cfd",
-          width: 125,
-          height: 100)
+          width: 80,
+          height: 90)
     ];
   }
 }

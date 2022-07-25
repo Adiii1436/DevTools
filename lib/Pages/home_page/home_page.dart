@@ -33,12 +33,11 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(5),
               child: IconButton(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  _pushToLoginpage();
-                },
-                icon: const Icon(Icons.logout_rounded),
-              ),
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    _pushToLoginpage();
+                  },
+                  icon: const Icon(Icons.logout_outlined)),
             )
           ],
         ),

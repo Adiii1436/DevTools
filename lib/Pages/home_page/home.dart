@@ -9,31 +9,34 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder(
-            future: Firebase.initializeApp(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user == null) {
-                    return const LoginPage(
-                      notVerified: false,
-                    );
-                  } else if (!user.emailVerified) {
-                    return const LoginPage(
-                      notVerified: true,
-                    );
-                  } else if (user.emailVerified) {
-                    return const HomePage();
-                  }
-                  return const Center(child: CircularProgressIndicator());
-                default:
-                  return const CircularProgressIndicator();
-              }
-            }),
-      ),
+    return SafeArea(
+      child: FutureBuilder(
+          future: Firebase.initializeApp(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                final user = FirebaseAuth.instance.currentUser;
+                if (user == null) {
+                  return const LoginPage(
+                    notVerified: false,
+                  );
+                } else if (!user.emailVerified) {
+                  return const LoginPage(
+                    notVerified: true,
+                  );
+                } else if (user.emailVerified) {
+                  return const HomePage();
+                } else {
+                  return Container(
+                    color: Colors.white,
+                  );
+                }
+              default:
+                return Container(
+                  color: Colors.white,
+                );
+            }
+          }),
     );
   }
 }

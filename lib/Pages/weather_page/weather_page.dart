@@ -105,8 +105,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => WeatherPageDetail(
-                                            doc: snapshot.data!.docs[index]
-                                                .data())));
+                                            doc: snapshot.data!.docs[index])));
                               },
                               child: Container(
                                 alignment: Alignment.center,

@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -82,7 +81,7 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
               height: 10,
             ),
             Text(
-              widget.doc['cityName'],
+              widget.doc.data()['cityName'],
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -103,7 +102,7 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
               decoration: BoxDecoration(
                   color: boxColor, borderRadius: BorderRadius.circular(15)),
               child: Text(
-                widget.doc['desc'],
+                widget.doc.data()['desc'],
                 style: const TextStyle(
                     fontSize: 15,
                     color: Colors.white,
@@ -116,7 +115,7 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(widget.doc['temp'].toString(),
+                Text(widget.doc.data()['temp'].toString(),
                     style: const TextStyle(
                         fontSize: 55, fontWeight: FontWeight.bold)),
                 Container(
@@ -142,20 +141,20 @@ class _WeatherPageDetailState extends State<WeatherPageDetail> {
                 Row(
                   children: [
                     const Icon(CupertinoIcons.wind),
-                    Text("${widget.doc['wind']}m/s")
+                    Text("${widget.doc.data()['wind']}m/s")
                   ],
                 ),
                 Row(
                   children: [
                     const Icon(CupertinoIcons.drop),
-                    Text("${widget.doc['humidity']}%")
+                    Text("${widget.doc.data()['humidity']}%")
                   ],
                 ),
                 Row(
                   children: [
                     const Icon(Icons.blur_circular_outlined),
                     Text(
-                      "${widget.doc['pressure']} hPa",
+                      "${widget.doc.data()['pressure']} hPa",
                     )
                   ],
                 )
