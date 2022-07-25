@@ -122,6 +122,7 @@ class _ImageToPdfState extends State<ImageToPdf> {
                   },
                   icon: const Icon(
                     Icons.save_outlined,
+                    color: Colors.green,
                   ))
               : Container()
         ],
@@ -135,7 +136,11 @@ class _ImageToPdfState extends State<ImageToPdf> {
                   backgroundColor: Colors.white,
                   elevation: 0.0,
                   onPressed: selectImage,
-                  child: const Icon(Icons.add),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.green,
+                    size: 27,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -150,6 +155,8 @@ class _ImageToPdfState extends State<ImageToPdf> {
                   },
                   child: const Icon(
                     Icons.delete,
+                    color: Colors.green,
+                    size: 27,
                   ),
                 ),
               ],
@@ -166,7 +173,13 @@ class _ImageToPdfState extends State<ImageToPdf> {
               _imageFileList.isEmpty
                   ? TextButton(
                       onPressed: selectImage,
-                      child: const Text('select image'),
+                      child: const Text(
+                        'select images',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold),
+                      ),
                     )
                   : Container(),
               _imageFileList.isNotEmpty
